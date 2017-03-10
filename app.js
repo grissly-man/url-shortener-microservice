@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
+var path = require('path');
 var mongo = require('mongodb').MongoClient;
 var app = express();
 
@@ -170,6 +171,8 @@ app.get('/new/*', function(req, res) {
     }
 });
 
+app.use('/', express.static(path.join(__dirname + "/out/url-shortner-microservice/1.0.0/")));
+
 /**
  * query a short_url and redirect
  */
@@ -193,5 +196,6 @@ app.get('/*', function(req, res) {
         });
     });
 });
+
 
 app.listen(process.env.PORT || 8080);
