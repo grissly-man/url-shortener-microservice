@@ -32,6 +32,23 @@
         <li><b>User Story:</b> If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.</li>
         <li><b>User Story:</b> When I visit that shortened URL, it will redirect me to my original link.</li>
     </ul>
+    
+    <h3>API Usage</h3>
+    <h4>/{short_url}</h4>
+    <caption>Looks up a <var>{short_url}</var> and redirects the user to its corresponding page</caption>
+    <p>For example:</p>
+    <span>
+        <code>https://short-url-logan.herokuapp.com/2</code>
+        <p>would redirect a user to</p>
+        <blockquote><code>http://www.google.com</code></blockquote>
+    </span>
+    <h4>/new/{url}</h4>
+    <caption>Takes a <var>{url}</var> string and returns a new short_url</caption>
+    <p>For example:</p>
+    <span>
+        <code>https://short-url-logan.herokuapp.com/new/http://www.google.com</code>
+        <blockquote><samp>{"original_url":"http://www.google.com","short_url":"short-url-logan.herokuapp.com/2"}</samp></blockquote>
+    </span>
 
 
 
