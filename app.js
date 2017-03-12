@@ -129,8 +129,19 @@ function addURL(url, cb) {
 }
 
 /**
- * creates and returns a new database entry.
- * if URL is already in database, returns that entry.
+ * @api {get} /new/{url} new
+ * @apiDescription Add new URL to the database
+ * @apiName new
+ * @apiGroup URLShortener
+ * @apiParam {String} url URL to be added to the database
+ * @apiExample {url} Request-Example:
+ *  https://short-url-logan.herokuapp.com/new/http://www.facebook.com
+ * @apiSuccess {String} original_url The original URL to be added to the database
+ * @apiSuccess {String} short_url The returned short URL
+ * @apiSuccessExample {json} Success-Response:
+ *  {
+ *      "original_url":"http://www.facebook.com","short_url":"short-url-logan.herokuapp.com/1"
+ *  }
  */
 app.get('/new/*', function(req, res) {
     var url = req.path.substr(5);
@@ -171,10 +182,27 @@ app.get('/new/*', function(req, res) {
     }
 });
 
-app.use('/', express.static(path.join(__dirname + "/out/url-shortner-microservice/1.0.0/")));
+app.use('/', express.static(path.join(__dirname, "doc")));
 
 /**
- * query a short_url and redirect
+ * @api {get} /{shorturl} getUrl
+ * @apiDescription Redirects user to the URL corresponding to the shorturl code
+ * @apiName getUrl
+ * @apiGroup URLShortener
+ * @apiParam {String} shorturl The code for lookup in the database
+ * @apiExample {url} Request-Example:
+ *  https://short-url-logan.herokuapp.com/1
+ * @apiSuccessExample {json} Success-Response:
+ *  HTTP/1.1 302 Found
+ *  Server: Cowboy
+ *  Connection: keep-alive
+ *  X-Powered-By: Express
+ *  Location: http://www.facebook.com
+ *  Vary: Accept
+ *  Content-Type: text/plain; charset=utf-8
+ *  Content-Length: 45
+ *  Date: Sun, 12 Mar 2017 21:26:59 GMT
+ *  Via: 1.1 vegur
  */
 app.get('/*', function(req, res) {
     mongo.connect(process.env.MONGO_URI, function(err, db) {

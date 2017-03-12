@@ -1,0 +1,100 @@
+define({ "api": [
+  {
+    "type": "get",
+    "url": "/{shorturl}",
+    "title": "getUrl",
+    "description": "<p>Redirects user to the URL corresponding to the shorturl code</p>",
+    "name": "getUrl",
+    "group": "URLShortener",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "shorturl",
+            "description": "<p>The code for lookup in the database</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "https://short-url-logan.herokuapp.com/1",
+        "type": "url"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 302 Found\nServer: Cowboy\nConnection: keep-alive\nX-Powered-By: Express\nLocation: http://www.facebook.com\nVary: Accept\nContent-Type: text/plain; charset=utf-8\nContent-Length: 45\nDate: Sun, 12 Mar 2017 21:26:59 GMT\nVia: 1.1 vegur",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "URLShortener"
+  },
+  {
+    "type": "get",
+    "url": "/new/{url}",
+    "title": "new",
+    "description": "<p>Add new URL to the database</p>",
+    "name": "new",
+    "group": "URLShortener",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>URL to be added to the database</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Request-Example:",
+        "content": "https://short-url-logan.herokuapp.com/new/http://www.facebook.com",
+        "type": "url"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "original_url",
+            "description": "<p>The original URL to be added to the database</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "short_url",
+            "description": "<p>The returned short URL</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"original_url\":\"http://www.facebook.com\",\"short_url\":\"short-url-logan.herokuapp.com/1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "URLShortener"
+  }
+] });
